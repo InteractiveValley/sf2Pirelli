@@ -1,0 +1,39 @@
+{% extends 'YDIBackendBundle::layout.html.twig' %}
+
+{% block nav %}
+    <nav>
+        <ul class="nav nav-justified">
+            <li><a href="{{ path('backend_home')}}">Inicio</a></li>  
+            <li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li>
+            <li><a href="{{ path('backend_estados')}}">Estados</a></li>
+            <li class="active"><a href="{{ path('backend_mensaje')}}">Mensaje Portada</a></li>
+            <li><a href="{{ path('backend_upload_images')}}">Imagenes</a></li>
+            <li><a href="{{ path('backend_logout')}}">Salir</a></li>
+        </ul>
+    </nav>
+{% endblock %} 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+{% endblock %}
+
+{% block content %}
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Mensaje en portada</h1>
+        <p class="lead">Ingrese su mensaje y guarde para aplicar los cambios.</p>
+    </div>
+    <div class="row">
+        {# renders all fields *and* the form start and end tags #}
+        {{ form(form) }}
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ tinymce_init() }}
+{% endblock %}
+

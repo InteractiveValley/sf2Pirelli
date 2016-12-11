@@ -1,9 +1,9 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-    uploads.initial: %kernel.root_dir%/../public_html/uploads/initial
-    uploads.updates: %kernel.root_dir%/../public_html/uploads/updates
-    uploads.images: %kernel.root_dir%/../public_html/uploads/images
+    uploads.initial: %kernel.root_dir%/../web/uploads/initial
+    uploads.updates: %kernel.root_dir%/../web/uploads/updates
+    uploads.images: %kernel.root_dir%/../web/uploads/images
 
 services:
 #    service_name:

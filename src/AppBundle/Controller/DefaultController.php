@@ -15,15 +15,28 @@ use Exception;
 class DefaultController extends Controller {
 
     /**
-     * @Route("/v1", name="homepage_anterior")
+     * @Route("/", name="homepage")
      * @Template()
      */
     public function indexAction(Request $request) {
-        return array();
+        $em = $this->getDoctrine()->getManager();
+        
+        $establecimientos = $em->getRepository('YDIBackendBundle:Establecimiento')
+                ->findAll();
+        $imagenes = $em->getRepository('YDIBackendBundle:Imagen')->findAll();
+        $estados = $em->getRepository('YDIBackendBundle:Estado')->findAll();
+        $mensaje = $em->getRepository('YDIBackendBundle:Publicacion')->find(1);
+        
+        return array(
+            'establecimientos'  =>  $establecimientos,
+            'imagenes'          =>  $imagenes,
+            'estados'           =>  $estados,
+            'mensaje'           =>  $mensaje
+        );
     }
 
     /**
-     * @Route("/", name="homepage")
+     * @Route("/v2", name="homepage_anterior")
      * @Template()
      */
     public function nuevoAction(Request $request) {

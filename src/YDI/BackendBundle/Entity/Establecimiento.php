@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Establecimiento
  *
  * @ORM\Table(name="establecimiento")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="YDI\BackendBundle\Repository\EstablecimientoRepository")
  */
 class Establecimiento
 {
@@ -24,109 +24,52 @@ class Establecimiento
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=100, nullable=true)
+     * @ORM\Column(name="estado", type="string", length=150, nullable=true)
+     */
+    private $estado;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="ciudad", type="string", length=150, nullable=true)
+     */
+    private $ciudad;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre", type="string", length=255, nullable=true)
      */
     private $nombre;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="clavegrupo", type="string", length=10, nullable=true)
-     */
-    private $clavegrupo;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url_ld", type="string", length=100, nullable=true)
-     */
-    private $urlLd;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="url_hd", type="string", length=100, nullable=true)
-     */
-    private $urlHd;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="tipo_logo", type="integer", nullable=true)
-     */
-    private $tipoLogo;
-
-    /**
-     * Bidirectional - One-To-Many (INVERSE SIDE)
-     *
-     * @ORM\OneToMany(targetEntity="Anuncio", mappedBy="establecimiento")
-     */
-    private $anuncios;
-
-    /**
-     * Bidirectional - One-To-Many (INVERSE SIDE)
-     *
-     * @ORM\OneToMany(targetEntity="ContadoresDispositivo", mappedBy="establecimiento")
-     */
-    private $contadoresDispositivo;
-
-    /**
-     * Bidirectional - One-To-Many (INVERSE SIDE)
-     *
-     * @ORM\OneToMany(targetEntity="GooglePlaces", mappedBy="establecimiento")
-     */
-    private $googlePlaces;
-
-    /**
-     * Bidirectional - One-To-Many (INVERSE SIDE)
-     *
-     * @ORM\OneToMany(targetEntity="Premios", mappedBy="establecimiento")
-     */
-    private $premios;
-
-    /**
-     * Bidirectional - One-To-Many (INVERSE SIDE)
-     *
-     * @ORM\OneToMany(targetEntity="Socios", mappedBy="establecimiento")
-     */
-    private $socios;
-    
-    /**
-     * @var \Pais
-     *
-     * @ORM\ManyToOne(targetEntity="GrupoEstablecimiento", inversedBy="establecimientos")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_grupo_establecimiento", referencedColumnName="id")
-     * })
-     */
-    private $grupoEstablecimiento;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre_pantalla", type="string", length=20, nullable=true)
+     * @ORM\Column(name="tipologia", type="string", length=150, nullable=true)
      */
-    private $nombrePantalla;
-    
+    private $tipologia;
+
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="fecha_actualizacion", type="datetime", nullable=true)
+     * @ORM\Column(name="direccion", type="text", nullable=true)
      */
-    private $fechaActualizacion;
-    
+    private $direccion;
+        
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cp", type="string", length=100, nullable=true)
+     */
+    private $cp;
     
     /**
-     * Constructor
+     * @var string
+     *
+     * @ORM\Column(name="telefonos", type="string", length=255, nullable=true)
      */
-    public function __construct()
-    {
-        $this->anuncios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->contadoresDispositivo = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->googlePlaces = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->premios = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->socios = new \Doctrine\Common\Collections\ArrayCollection();
-    }
+    private $telefonos;
+    
 
     /**
      * Get id
@@ -136,6 +79,54 @@ class Establecimiento
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set estado
+     *
+     * @param string $estado
+     *
+     * @return Establecimiento
+     */
+    public function setEstado($estado)
+    {
+        $this->estado = $estado;
+
+        return $this;
+    }
+
+    /**
+     * Get estado
+     *
+     * @return string
+     */
+    public function getEstado()
+    {
+        return $this->estado;
+    }
+
+    /**
+     * Set ciudad
+     *
+     * @param string $ciudad
+     *
+     * @return Establecimiento
+     */
+    public function setCiudad($ciudad)
+    {
+        $this->ciudad = $ciudad;
+
+        return $this;
+    }
+
+    /**
+     * Get ciudad
+     *
+     * @return string
+     */
+    public function getCiudad()
+    {
+        return $this->ciudad;
     }
 
     /**
@@ -163,340 +154,98 @@ class Establecimiento
     }
 
     /**
-     * Set clavegrupo
+     * Set tipologia
      *
-     * @param string $clavegrupo
+     * @param string $tipologia
      *
      * @return Establecimiento
      */
-    public function setClavegrupo($clavegrupo)
+    public function setTipologia($tipologia)
     {
-        $this->clavegrupo = $clavegrupo;
+        $this->tipologia = $tipologia;
 
         return $this;
     }
 
     /**
-     * Get clavegrupo
+     * Get tipologia
      *
      * @return string
      */
-    public function getClavegrupo()
+    public function getTipologia()
     {
-        return $this->clavegrupo;
+        return $this->tipologia;
     }
 
     /**
-     * Set urlLd
+     * Set direccion
      *
-     * @param string $urlLd
+     * @param string $direccion
      *
      * @return Establecimiento
      */
-    public function setUrlLd($urlLd)
+    public function setDireccion($direccion)
     {
-        $this->urlLd = $urlLd;
+        $this->direccion = $direccion;
 
         return $this;
     }
 
     /**
-     * Get urlLd
+     * Get direccion
      *
      * @return string
      */
-    public function getUrlLd()
+    public function getDireccion()
     {
-        return $this->urlLd;
+        return $this->direccion;
     }
 
     /**
-     * Set urlHd
+     * Set cp
      *
-     * @param string $urlHd
+     * @param string $cp
      *
      * @return Establecimiento
      */
-    public function setUrlHd($urlHd)
+    public function setCp($cp)
     {
-        $this->urlHd = $urlHd;
+        $this->cp = $cp;
 
         return $this;
     }
 
     /**
-     * Get urlHd
+     * Get cp
      *
      * @return string
      */
-    public function getUrlHd()
+    public function getCp()
     {
-        return $this->urlHd;
+        return $this->cp;
     }
 
     /**
-     * Set tipoLogo
+     * Set telefonos
      *
-     * @param integer $tipoLogo
+     * @param string $telefonos
      *
      * @return Establecimiento
      */
-    public function setTipoLogo($tipoLogo)
+    public function setTelefonos($telefonos)
     {
-        $this->tipoLogo = $tipoLogo;
+        $this->telefonos = $telefonos;
 
         return $this;
     }
 
     /**
-     * Get tipoLogo
-     *
-     * @return integer
-     */
-    public function getTipoLogo()
-    {
-        return $this->tipoLogo;
-    }
-
-    /**
-     * Set nombrePantalla
-     *
-     * @param string $nombrePantalla
-     *
-     * @return Establecimiento
-     */
-    public function setNombrePantalla($nombrePantalla)
-    {
-        $this->nombrePantalla = $nombrePantalla;
-
-        return $this;
-    }
-
-    /**
-     * Get nombrePantalla
+     * Get telefonos
      *
      * @return string
      */
-    public function getNombrePantalla()
+    public function getTelefonos()
     {
-        return $this->nombrePantalla;
-    }
-
-    /**
-     * Add anuncio
-     *
-     * @param \YDI\BackendBundle\Entity\Anuncio $anuncio
-     *
-     * @return Establecimiento
-     */
-    public function addAnuncio(\YDI\BackendBundle\Entity\Anuncio $anuncio)
-    {
-        $this->anuncios[] = $anuncio;
-
-        return $this;
-    }
-
-    /**
-     * Remove anuncio
-     *
-     * @param \YDI\BackendBundle\Entity\Anuncio $anuncio
-     */
-    public function removeAnuncio(\YDI\BackendBundle\Entity\Anuncio $anuncio)
-    {
-        $this->anuncios->removeElement($anuncio);
-    }
-
-    /**
-     * Get anuncios
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAnuncios()
-    {
-        return $this->anuncios;
-    }
-
-    /**
-     * Add contadoresDispositivo
-     *
-     * @param \YDI\BackendBundle\Entity\ContadoresDispositivo $contadoresDispositivo
-     *
-     * @return Establecimiento
-     */
-    public function addContadoresDispositivo(\YDI\BackendBundle\Entity\ContadoresDispositivo $contadoresDispositivo)
-    {
-        $this->contadoresDispositivo[] = $contadoresDispositivo;
-
-        return $this;
-    }
-
-    /**
-     * Remove contadoresDispositivo
-     *
-     * @param \YDI\BackendBundle\Entity\ContadoresDispositivo $contadoresDispositivo
-     */
-    public function removeContadoresDispositivo(\YDI\BackendBundle\Entity\ContadoresDispositivo $contadoresDispositivo)
-    {
-        $this->contadoresDispositivo->removeElement($contadoresDispositivo);
-    }
-
-    /**
-     * Get contadoresDispositivo
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getContadoresDispositivo()
-    {
-        return $this->contadoresDispositivo;
-    }
-
-    /**
-     * Add googlePlace
-     *
-     * @param \YDI\BackendBundle\Entity\GooglePlaces $googlePlace
-     *
-     * @return Establecimiento
-     */
-    public function addGooglePlace(\YDI\BackendBundle\Entity\GooglePlaces $googlePlace)
-    {
-        $this->googlePlaces[] = $googlePlace;
-
-        return $this;
-    }
-
-    /**
-     * Remove googlePlace
-     *
-     * @param \YDI\BackendBundle\Entity\GooglePlaces $googlePlace
-     */
-    public function removeGooglePlace(\YDI\BackendBundle\Entity\GooglePlaces $googlePlace)
-    {
-        $this->googlePlaces->removeElement($googlePlace);
-    }
-
-    /**
-     * Get googlePlaces
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getGooglePlaces()
-    {
-        return $this->googlePlaces;
-    }
-
-    /**
-     * Add premio
-     *
-     * @param \YDI\BackendBundle\Entity\Premios $premio
-     *
-     * @return Establecimiento
-     */
-    public function addPremio(\YDI\BackendBundle\Entity\Premios $premio)
-    {
-        $this->premios[] = $premio;
-
-        return $this;
-    }
-
-    /**
-     * Remove premio
-     *
-     * @param \YDI\BackendBundle\Entity\Premios $premio
-     */
-    public function removePremio(\YDI\BackendBundle\Entity\Premios $premio)
-    {
-        $this->premios->removeElement($premio);
-    }
-
-    /**
-     * Get premios
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getPremios()
-    {
-        return $this->premios;
-    }
-
-    /**
-     * Add socio
-     *
-     * @param \YDI\BackendBundle\Entity\Socios $socio
-     *
-     * @return Establecimiento
-     */
-    public function addSocio(\YDI\BackendBundle\Entity\Socios $socio)
-    {
-        $this->socios[] = $socio;
-
-        return $this;
-    }
-
-    /**
-     * Remove socio
-     *
-     * @param \YDI\BackendBundle\Entity\Socios $socio
-     */
-    public function removeSocio(\YDI\BackendBundle\Entity\Socios $socio)
-    {
-        $this->socios->removeElement($socio);
-    }
-
-    /**
-     * Get socios
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSocios()
-    {
-        return $this->socios;
-    }
-
-    /**
-     * Set grupoEstablecimiento
-     *
-     * @param \YDI\BackendBundle\Entity\GrupoEstablecimiento $grupoEstablecimiento
-     *
-     * @return Establecimiento
-     */
-    public function setGrupoEstablecimiento(\YDI\BackendBundle\Entity\GrupoEstablecimiento $grupoEstablecimiento = null)
-    {
-        $this->grupoEstablecimiento = $grupoEstablecimiento;
-
-        return $this;
-    }
-
-    /**
-     * Get grupoEstablecimiento
-     *
-     * @return \YDI\BackendBundle\Entity\GrupoEstablecimiento
-     */
-    public function getGrupoEstablecimiento()
-    {
-        return $this->grupoEstablecimiento;
-    }
-
-    /**
-     * Set fechaActualizacion
-     *
-     * @param \DateTime $fechaActualizacion
-     *
-     * @return Establecimiento
-     */
-    public function setFechaActualizacion($fechaActualizacion)
-    {
-        $this->fechaActualizacion = $fechaActualizacion;
-
-        return $this;
-    }
-
-    /**
-     * Get fechaActualizacion
-     *
-     * @return \DateTime
-     */
-    public function getFechaActualizacion()
-    {
-        return $this->fechaActualizacion;
+        return $this->telefonos;
     }
 }

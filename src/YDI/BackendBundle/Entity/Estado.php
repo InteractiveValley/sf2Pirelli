@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Estado
  *
- * @ORM\Table(name="estado", uniqueConstraints={@ORM\UniqueConstraint(name="indice_unique", columns={"id", "id_pais"})}, indexes={@ORM\Index(name="fk_estados_pais1_idx", columns={"id_pais"})})
+ * @ORM\Table()
  * @ORM\Entity
  */
 class Estado
@@ -15,7 +15,7 @@ class Estado
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -24,33 +24,17 @@ class Estado
     /**
      * @var string
      *
-     * @ORM\Column(name="nombre", type="string", length=45, nullable=true)
+     * @ORM\Column(name="nombre", type="string", length=255)
      */
     private $nombre;
 
     /**
-     * @var \Pais
+     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Pais", inversedBy="estados")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_pais", referencedColumnName="id")
-     * })
+     * @ORM\Column(name="mostrar", type="smallint")
      */
-    private $pais;
+    private $mostrar;
 
-    /**
-     * Bidirectional - One-To-One (INVERSE SIDE)
-     *
-     * @ORM\OneToMany(targetEntity="Codigop", mappedBy="estado")
-     */
-    private $codigosPostales;
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->codigosPostales = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Get id
@@ -87,60 +71,27 @@ class Estado
     }
 
     /**
-     * Set pais
+     * Set mostrar
      *
-     * @param \YDI\BackendBundle\Entity\Pais $pais
+     * @param integer $mostrar
      *
      * @return Estado
      */
-    public function setPais(\YDI\BackendBundle\Entity\Pais $pais = null)
+    public function setMostrar($mostrar)
     {
-        $this->pais = $pais;
+        $this->mostrar = $mostrar;
 
         return $this;
     }
 
     /**
-     * Get pais
+     * Get mostrar
      *
-     * @return \YDI\BackendBundle\Entity\Pais
+     * @return integer
      */
-    public function getPais()
+    public function getMostrar()
     {
-        return $this->pais;
-    }
-
-    /**
-     * Add codigosPostale
-     *
-     * @param \YDI\BackendBundle\Entity\Codigop $codigosPostale
-     *
-     * @return Estado
-     */
-    public function addCodigosPostale(\YDI\BackendBundle\Entity\Codigop $codigosPostale)
-    {
-        $this->codigosPostales[] = $codigosPostale;
-
-        return $this;
-    }
-
-    /**
-     * Remove codigosPostale
-     *
-     * @param \YDI\BackendBundle\Entity\Codigop $codigosPostale
-     */
-    public function removeCodigosPostale(\YDI\BackendBundle\Entity\Codigop $codigosPostale)
-    {
-        $this->codigosPostales->removeElement($codigosPostale);
-    }
-
-    /**
-     * Get codigosPostales
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCodigosPostales()
-    {
-        return $this->codigosPostales;
+        return $this->mostrar;
     }
 }
+

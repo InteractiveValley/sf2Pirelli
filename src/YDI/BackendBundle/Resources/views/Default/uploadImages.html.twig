@@ -4,14 +4,14 @@
     <nav>
         <ul class="nav nav-justified">
             <li><a href="{{ path('backend_home')}}">Inicio</a></li>  
-            <!--li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li-->
-            <li><a href="{{asset('uploads/apks/app-debug.apk')}}" target="_blank">APK download</a></li>
-            <li><a href="{{ path('backend_upload_updates')}}">Actualizaciones</a></li>
+            <li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li>
+            <li><a href="{{ path('backend_estados')}}">Estados</a></li>
+            <li><a href="{{ path('backend_mensaje')}}">Mensaje Portada</a></li>
             <li class="active"><a href="{{ path('backend_upload_images')}}">Imagenes</a></li>
             <li><a href="{{ path('backend_logout')}}">Salir</a></li>
         </ul>
     </nav>
-{% endblock %}  
+{% endblock %} 
 
 {% block stylesheets %}
     {{ parent() }}
@@ -34,13 +34,54 @@
         <p class="lead">Subir las imagenes de anuncios.</p>
     </div>
     <div class="row">
-        <form method="post" id="formulario" enctype="multipart/form-data">
-            Subir imagenes: <input type="file" id="file" name="file[]"  class="btn btn-default" multiple>
-            <button type="button" id="btn" class="btn btn-default">Subir imágenes</button>
-         </form>
-        <ul id="vista-previa"></ul>
-        <div id="respuesta"></div>
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Seleccionar imagenes...</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input id="fileupload" type="file" name="files[]" multiple>
+        </span>
+        <br>
+        <br>
+        <!-- The global progress bar -->
+        <div id="progress" class="progress">
+            <div class="progress-bar progress-bar-success"></div>
+        </div>
+        <!-- The container for the uploaded files -->
+        <div id="files" class="files"></div>
+        <br>
     </div>
+    <div class="row">
+        <table role="presentation" class="table table-striped">
+            <tbody class="files">
+                {% for imagen in entities %}
+                <tr class="template-download fade in" id="imagen-{{imagen.id}}">
+                    <td>
+                        <span class="preview">
+                            <a href="{{imagen.webPath}}" title="{{imagen.imagen}}">
+                                <img src="{{imagen.webPath}}" style="max-width: 250px;">
+                            </a>
+                        </span>
+                    </td>
+                    <td>
+                        <p class="name">
+                            <a href="#" title="{{imagen.imagen}}" >
+                                {{imagen.imagen}}
+                            </a>
+                        </p>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger delete" data-type="DELETE" data-id="{{imagen.id}}">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            <span>Delete</span>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
 {% endblock %}
 
 {% block javascripts %}
@@ -49,54 +90,48 @@
     <script src="{{asset('js/jquery.fileupload.js')}}"></script>
     <script>
      $(function(){   
-       $("#file").on("change", function(){
-           /* Limpiar vista previa */
-           $("#vista-previa").html('');
-           var archivos = document.getElementById('file').files;
-           var navegador = window.URL || window.webkitURL;
-           /* Recorrer los archivos */
-           for(x=0; x<archivos.length; x++)
-           {
-               /* Validar tamaño y tipo de archivo */
-               var size = archivos[x].size;
-               var type = archivos[x].type;
-               var name = archivos[x].name;
-               if (size > 1024*1024)
-               {
-                   $("#vista-previa").append("<p style='color: red'>El archivo "+name+" supera el máximo permitido 1MB</p>");
-               }
-               else if(type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png' && type != 'image/gif')
-               {
-                   $("#vista-previa").append("<p style='color: red'>El archivo "+name+" no es del tipo de imagen permitida.</p>");
-               }
-               else
-               {
-                 var objeto_url = navegador.createObjectURL(archivos[x]);
-                 $p = $("<p>").html("Tamaño de archivo: " + formatFileSize(file.size));
-                 $img = $("<img>").attr({'src': objeto_url}).css({'maxHeight': '250px', 'maxWidth': '250px'});
-                 $li = $("<li>").append($img).css({'margin': '10px', 'list-style': 'none'}).append($p);
-                 $("#vista-previa").append($li);
-               }
-           }
-       });
-       
-       $("#btn").on("click", function(){
-            var formData = new FormData($("#formulario")[0]);
-            var ruta = '{{ path('backend_upload_images') }}';
+       'use strict';
+        // Change this to the location of your server-side upload handler:
+        var url =  '{{ path('backend_upload_images') }}';
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            acceptFileTypes: /(\.|\/)(xls)$/i,
+            maxFileSize: 999000,
+            done: function (e, data) {
+                console.log(e);
+                console.log(data);
+                location.href = '{{ path('backend_upload_images') }}';
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+                );
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        
+        $(".delete").on("click",function(e){
+            var url = "{{ path('backend_delete_images', {'id': "PLACEHOLDER_ID" }) }}";
+            var imagenId = $(this).data('id');
+            url = url.replace("PLACEHOLDER_ID", imagenId);
             $.ajax({
-                url: ruta,
-                type: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(datos)
-                {
-                    console.log(datos);
-                    $("#respuesta").html(datos.length +  " archivos cargados.");
+                method: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    $("#imagen-" + imagenId).remove();
+                },
+                error: function(data){
+                    alert("Error al eliminar la imagen");
+                    console.log(data);
                 }
-            });
-           });
-       
+            })
+            
+        });
+        
      });
     </script>
 {% endblock %}

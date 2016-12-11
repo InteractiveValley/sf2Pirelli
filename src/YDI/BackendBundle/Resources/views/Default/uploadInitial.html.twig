@@ -4,9 +4,9 @@
     <nav>
         <ul class="nav nav-justified">
             <li><a href="{{ path('backend_home')}}">Inicio</a></li>  
-            <!--li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li-->
-            <li><a href="{{asset('uploads/apks/app-debug.apk')}}" target="_blank">APK download</a></li>
-            <li><a href="{{ path('backend_upload_updates')}}">Actualizaciones</a></li>
+            <li class="active"><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li>
+            <li><a href="{{ path('backend_estados')}}">Estados</a></li>
+            <li><a href="{{ path('backend_mensaje')}}">Mensaje Portada</a></li>
             <li><a href="{{ path('backend_upload_images')}}">Imagenes</a></li>
             <li><a href="{{ path('backend_logout')}}">Salir</a></li>
         </ul>
@@ -24,14 +24,14 @@
 {% block content %}
     <!-- Jumbotron -->
     <div class="jumbotron">
-        <h1>Subir archivos carga inicial</h1>
-        <p class="lead">Subir los archivos de carga inicial.</p>
+        <h1>Subir archivo</h1>
+        <p class="lead">El archivo reemplaza por completo el contenido actual.</p>
     </div>
     <div class="row">
         <!-- The fileinput-button span is used to style the file input field as button -->
         <span class="btn btn-success fileinput-button">
             <i class="glyphicon glyphicon-plus"></i>
-            <span>Select files...</span>
+            <span>Seleccionar archivo...</span>
             <!-- The file input field used as target for the file upload widget -->
             <input id="fileupload" type="file" name="files[]" multiple>
         </span>
@@ -84,13 +84,46 @@
             </tfoot>
             {% endif %}
         </table>
-        <div class="text-center">
-            <button class="button-action-notificacion-general btn btn-success" data-loading-text="Loading..." data-url="{{path('backend_notificacion_general')}}">
-                Enviar notificaciones
-            </button>
-        </div>
         <div class="resultados"></div>
     </div>
+    <div class="row">
+        <h2>Registros activos</h2>
+    </div>    
+    <div class="row">
+        <table role="presentation" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Estado</th>
+                    <th>Ciudad</th>
+                    <th>Establecimiento</th>
+                    <th>Tipologia</th>
+                    <th>Direccion</th>
+                    <th>CP</th>
+                    <th>Telefonos</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="files">
+                {% for establecimiento in entities %}
+                <tr class="template-download fade in" id="establecimiento-{{establecimiento.id}}">
+                    <td>{{establecimiento.estado}}</td>
+                    <td>{{establecimiento.ciudad}}</td>
+                    <td>{{establecimiento.nombre}}</td>
+                    <td>{{establecimiento.tipologia}}</td>
+                    <td>{{establecimiento.direccion}}</td>
+                    <td>{{establecimiento.cp}}</td>
+                    <td>{{establecimiento.telefonos}}</td>
+                    <td>
+                        <button class="btn btn-danger delete" data-type="DELETE" data-id="{{establecimiento.id}}">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            <span>Delete</span>
+                        </button>  
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>        
 {% endblock %}
 
 {% block javascripts %}
@@ -114,9 +147,9 @@
             acceptFileTypes: /(\.|\/)(xls)$/i,
             maxFileSize: 999000,
             done: function (e, data) {
-                $.each(data.result.files, function (index, file) {
+                /*$.each(data.result.files, function (index, file) {
                     $('<p/>').text(file.name).appendTo('#files');
-                });
+                });*/
                 location.href = '{{ path('backend_upload_initial') }}';
             },
             progressall: function (e, data) {
@@ -125,38 +158,10 @@
                     'width',
                     progress + '%'
                 );
-                if(progress == 100){
-                   setTimeout(function(){
-                       location.href = '{{ path('backend_upload_initial') }}';
-                   },1000);
-                }
             }
         }).prop('disabled', !$.support.fileInput)
             .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
-        $(".button-action-notificacion-general").on("click",function(e){
-            var url = $(this).data('url');
-            var $btn = $(this).button('loading');
-            $.ajax({
-                url: url,
-                type:'post',
-                dataType: 'json',
-                data:{}
-            }).done(function(data){
-                $btn.button('reset');
-                debugger;
-                if(data.motivo){
-                    $(".resultados").html("<p>Enviar notificaciones generales: " + data.estatus + "<br/> Detalle: " + data.motivo + "</p>");
-                }else{
-                    $(".resultados").html("<p>Enviar notificaciones generales: " + data.estatus +  "</p>");
-                }
-            }).fail(function(data){
-               $btn.button('reset');
-               console.log(data);
-               alert("Error de carga");
-            });
-        });        
-    
         $(".tabla-registros .button-action").on("click",function(e){
             var url = $(this).data('url');
             var $parent = $(this).parent().parent();
@@ -177,10 +182,8 @@
                 var mensaje = "";
                 if(tabla.error){
                     mensaje = "Error :" + tabla.error;
-                    alert(mensaje);
                 }else{
                     mensaje = "OK tabla: " + tabla.tabla + " fue cargarda. Registros: "+ tabla.registros;
-                    alert(mensaje);
                 }
                 if(target){
                     target.find('.registros').html(mensaje);
@@ -193,6 +196,24 @@
                console.log(data);
                alert("Error de carga");
               
+            });
+        });
+        
+        $(".delete").on("click",function(e){
+            var url = "{{ path('backend_delete_establecimientos', {'id': "PLACEHOLDER_ID" }) }}";
+            var establecimientoId = $(this).data('id');
+            url = url.replace("PLACEHOLDER_ID", establecimientoId);
+            $.ajax({
+                method: 'DELETE',
+                url: url,
+                dataType: 'json',
+                success: function(data){
+                    $("#establecimiento-" + establecimientoId).remove();
+                },
+                error: function(data){
+                    alert("Error al eliminar el establecimiento");
+                    console.log(data);
+                }
             });
         });
         
@@ -217,10 +238,8 @@
                     var mensaje = "";
                     if(data[index].error){
                         mensaje = "Error :" + data[index].error;
-                        alert(mensaje);
                     }else{
                         mensaje = "OK tabla: " + data[index].tabla + " fue cargarda. Registros: "+ data[index].registros;
-                        alert(mensaje);
                     }
                     target = $("."+data[index].tabla + "-tabla-registros");
                     if(target){

@@ -1,0 +1,105 @@
+{% extends 'YDIBackendBundle::layout.html.twig' %}
+
+{% block nav %}
+    <nav>
+        <ul class="nav nav-justified">
+            <li><a href="{{ path('backend_home')}}">Inicio</a></li>  
+            <li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li>
+            <li class="active"><a href="{{ path('backend_estados')}}">Estados</a></li>
+            <li><a href="{{ path('backend_mensaje')}}">Mensaje Portada</a></li>
+            <li><a href="{{ path('backend_upload_images')}}">Imagenes</a></li>
+            <li><a href="{{ path('backend_logout')}}">Salir</a></li>
+        </ul>
+    </nav>
+{% endblock %} 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+{% endblock %}
+
+{% block content %}
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Estados</h1>
+        <p class="lead">Habilite o desabilite el estado para mostrar.</p>
+    </div>
+    <div class="row">
+        <table role="presentation" class="table table-striped">
+            <thead>
+                <tr>
+                    <th width="33%">Estado</th>
+                    <th width="33%">Status</th>
+                    <th width="33%">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="files">
+                {% for estado in entities %}
+                <tr class="template-download fade in" id="estado-{{estado.id}}">
+                    <td>
+                        {{estado.nombre}}
+                    </td>
+                    <td>
+                        {% if estado.mostrar %}
+                            Activo
+                        {% else %}
+                            Inactivo
+                        {% endif %}    
+                    </td>
+                    <td>
+                        <button class="btn btn-success activar" data-id="{{estado.id}}" data-estado="{{estado.nombre}}" data-mostrar="1">
+                            <i class="glyphicon glyphicon-ok"></i>
+                            <span>Activar</span>
+                        </button>
+                        <button class="btn btn-danger inactivar" data-id="{{estado.id}}" data-estado="{{estado.nombre}}" data-mostrar="0">
+                            <i class="glyphicon glyphicon-remove"></i>
+                            <span>Inactivar</span>
+                        </button>    
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+         $(function(){   
+           'use strict';
+            $(".activar, .inactivar").on("click",function(e){
+                var url = "{{ path('backend_estados') }}";
+                var $registro = $(this);
+                var estadoId = $registro.data('id');
+                var estado = $registro.data('estado');
+                var mostrar = $registro.data('mostrar');
+                $.ajax({
+                    method: 'POST',
+                    url: url,
+                    data: {'id': estadoId, 'nombre': estado, 'mostrar': mostrar},
+                    dataType: 'json',
+                    success: function(data){
+                        console.log(data);
+                        var $tds = $("#estado-" + estadoId).find('td');
+                        
+                        if(data.mostrar == true){
+                            $tds[1].innerHTML='Activo';
+                        }else{
+                            $tds[1].innerHTML='Inactivo';
+                        }
+                    },
+                    error: function(data){
+                        alert("Error al eliminar la imagen");
+                        console.log(data);
+                    }
+                })
+            
+            });
+        
+         });
+    </script>    
+{% endblock %}
+
