@@ -1,0 +1,21 @@
+.centra {
+	left:0;
+	right:0;
+	margin-left:auto;
+	margin-right:auto;	
+}
+
+h1 {
+	display: block;
+    text-align: center;
+}
+
+h3 {
+	display: block;
+    text-align: center;
+}
+
+h4 {
+	display: block;
+    text-align: center;
+}

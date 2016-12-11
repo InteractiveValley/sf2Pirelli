@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Tarjeta" table="tarjeta">
+    <indexes>
+      <index name="fk_tarjeta_tarjeta_emisoroperador1_idx" columns="id_tarjeta_emisor_operador"/>
+      <index name="IDX_AE90B786DB38439E" columns="id_usuario"/>
+    </indexes>
+    <id name="idTarjetaEmisoroperador" type="integer" column="id_tarjeta_emisor_operador"/>
+    <id name="usuario" association-key="true"/>
+    <field name="ultimosDigitos" type="smallint" column="ultimos_digitos" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="fechaVencimiento" type="date" column="fecha_vencimiento" nullable="true"/>
+    <one-to-one field="usuario" target-entity="Usuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_usuario" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

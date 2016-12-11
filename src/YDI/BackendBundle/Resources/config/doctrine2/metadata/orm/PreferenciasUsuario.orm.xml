@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="PreferenciasUsuario" table="preferencias_usuario">
+    <indexes>
+      <index name="fk_preferencias_usuario_subnivel_preferencia1_idx" columns="id_subnivel_preferencia"/>
+      <index name="IDX_BA752A97DB38439E" columns="id_usuario"/>
+    </indexes>
+    <id name="idSubnivelPreferencia" type="integer" column="id_subnivel_preferencia"/>
+    <id name="usuario" association-key="true"/>
+    <one-to-one field="usuario" target-entity="Usuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="id_usuario" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,42 @@
+{% extends 'YDIBackendBundle::layout.html.twig' %}
+
+{% block nav %}
+    <nav>
+        <ul class="nav nav-justified">
+            <li class="active"><a href="{{ path('backend_home')}}">Inicio</a></li>  
+            <!--li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li-->
+            <li><a href="{{asset('uploads/apks/app-debug.apk')}}" target="_blank">APK download</a></li>
+            <li><a href="{{ path('backend_upload_updates')}}">Actualizaciones</a></li>
+            <li><a href="{{ path('backend_upload_images')}}">Imagenes</a></li>
+            <li><a href="{{ path('backend_logout')}}">Salir</a></li>
+        </ul>
+    </nav>
+{% endblock %}  
+
+{% block content %}
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Administrador de archivos</h1>
+        <p class="lead">Bienvenido al administrador de archivos, favor de seleccionar la opcion deseada.</p>
+    </div>
+
+    <!-- Example row of columns -->
+    <div class="row">
+        <!--div class="col-lg-4">
+            <h2>Carga inicial</h2>
+            <p class="text-danger">Los datos completos de las tablas se reemplazaran o crearan si no existen.</p>
+            <p>Subir los archivos de carga inicial. </p>
+            <p><a class="btn btn-primary" href="{{ path('backend_upload_initial')}}" role="button">Carga inicial</a></p>
+        </div-->
+        <div class="col-lg-6">
+            <h2>Cargar actualizaciones</h2>
+            <p> Crear, actualizar o eliminar registros.</p>
+            <p><a class="btn btn-primary" href="{{ path('backend_upload_updates')}}" role="button">Actualizaciones</a></p>
+        </div>
+        <div class="col-lg-6">
+            <h2>Cargar imagenes</h2>
+            <p>Subir imagenes para los anuncios.</p>
+            <p><a class="btn btn-primary" href="{{ path('backend_upload_images')}}" role="button">Imagenes</a></p>
+        </div>
+    </div>
+{% endblock %}

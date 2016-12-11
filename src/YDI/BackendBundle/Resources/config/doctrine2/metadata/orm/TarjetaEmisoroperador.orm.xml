@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="TarjetaEmisoroperador" table="tarjeta_emisoroperador">
+    <indexes>
+      <index name="fk_tarjeta_emisoroperador_tipostarjeta1_idx" columns="id_tipostarjeta"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="idEmisoroperador" type="integer" column="id_emisoroperador"/>
+    <id name="idTipostarjeta" type="integer" column="id_tipostarjeta"/>
+    <field name="urlHd" type="string" column="url_hd" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="urlLd" type="string" column="url_ld" length="100" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+  </entity>
+</doctrine-mapping>

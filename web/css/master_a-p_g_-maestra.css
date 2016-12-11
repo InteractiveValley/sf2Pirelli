@@ -1,0 +1,77 @@
+#u862
+{
+	background-color: #000000;
+	position: relative;
+}
+
+#u399-3
+{
+	-pie-box-shadow: 6px 6px 8px #B5B5B5;
+	box-shadow: 6px 6px 8px rgba(0,0,0,0.29);
+	background-color: #EF7D00;
+	position: relative;
+}
+
+#slideshowu561
+{
+	position: relative;
+}
+
+#u568
+{
+	position: absolute;
+	background-color: transparent;
+}
+
+#u784,#u754,#u845
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: transparent;
+	position: relative;
+}
+
+#u585-4
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: #FFFFFF;
+	color: #999999;
+	line-height: 20px;
+	text-align: center;
+	font-family: Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
+	position: fixed;
+}
+
+#u563-4,#u586-4
+{
+	border-style: none;
+	border-color: transparent;
+	background-color: #FFFFFF;
+	text-align: center;
+	line-height: 20px;
+	font-family: Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
+	position: fixed;
+}
+
+#u563,#u586
+{
+	color: #999999;
+}
+
+.SSFirstButton,.SSPreviousButton,.SSNextButton,.SSLastButton,.SSSlideLink,.SSCloseButton /* slideshowFreeStyle */
+{
+	cursor: pointer;
+}
+
+.SSSlideLoading /* slideshowFreeStyle */
+{
+	background: url("../images/loading.gif") no-repeat center center;
+}
+
+#u324,#u354,#u330
+{
+	background-color: transparent;
+	position: relative;
+}
+

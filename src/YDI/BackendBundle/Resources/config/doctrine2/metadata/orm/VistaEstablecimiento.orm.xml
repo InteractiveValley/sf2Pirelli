@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VistaEstablecimiento" table="vista_establecimiento">
+    <indexes>
+      <index name="fk_vista_establecimiento_establecimiento1_idx" columns="establecimiento_id"/>
+      <index name="IDX_A093223A8A4DFB6C" columns="vista_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="establecimiento" association-key="true"/>
+    <id name="vista" association-key="true"/>
+    <one-to-one field="vista" target-entity="Vista" fetch="LAZY">
+      <join-columns>
+        <join-column name="vista_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="establecimiento" target-entity="Establecimiento" fetch="LAZY">
+      <join-columns>
+        <join-column name="establecimiento_id" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

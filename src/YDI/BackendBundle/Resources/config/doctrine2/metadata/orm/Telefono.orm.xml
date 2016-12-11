@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Telefono" table="telefono">
+    <indexes>
+      <index name="fk_telefono_usuario1_idx" columns="id_usuario"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="idUsuario" type="integer" column="id_usuario"/>
+    <field name="gcmid" type="text" column="GCMID" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechaDescarga" type="date" column="fecha_descarga" nullable="true"/>
+  </entity>
+</doctrine-mapping>

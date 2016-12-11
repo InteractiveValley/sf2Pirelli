@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}Gracias!{% endblock %}
+
+{% block body %}
+    <table>
+        <thead>
+            <tr colspan="2">
+                <th>Mensaje desde pagina</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="background-color: gray;color: white;">
+                    Nombre:
+                <td>
+                <td>
+                    {{datos.name}}
+                <td>
+            </tr>
+            <tr>
+                <td style="background-color: gray;color: white;">
+                    Email:
+                <td>
+                <td>
+                    {{datos.email}}
+                <td>
+            </tr>	
+            </tr>
+            <tr>
+                <td style="background-color: gray;color: white;">
+                    Telefono o Celular:
+                <td>
+                <td>
+                    {{datos.phone}}
+                <td>
+            </tr>
+            <tr>
+                <td style="background-color: gray;color: white;">
+                    Empresa:
+                <td>
+                <td>
+                    {{datos.company}}
+                <td>
+            <tr>
+                <td style="background-color: gray;color: white;">
+                    Comentarios:
+                <td>
+                <td>
+                    {{datos.body | raw }}
+                <td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

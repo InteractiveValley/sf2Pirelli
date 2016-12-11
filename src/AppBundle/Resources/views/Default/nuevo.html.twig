@@ -1,0 +1,250 @@
+{% extends 'AppBundle::layout.html.twig' %} 
+
+{% block content %}
+    <div id="inicio">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="{{asset('images/road2.jpg')}}" alt="Chania">
+                </div>
+
+                <div class="item">
+                    <img src="{{asset('images/road.jpg')}}" alt="Chania">
+                </div>
+
+                <div class="item">
+                    <img src="{{asset('images/road3.jpg')}}" alt="Flower">
+                </div>
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+    <div class="encabezado-seccion padding" id="negocios">
+        <div class="col-md-12 text-center texto-encabezado">
+            <h2 style="line-height: 33px;">
+                Con ydi (se dice guaydai), las ofertas y oportunidades están a la vuelta de TU esquina y listas para que las aproveches!!!.
+            </h2>
+            <p class="text-center contenedor-imagen">
+                <img class="imagen imagen-centrada img-responsive" src="/images/google_play_store.png" alt="" style="max-height: 60px;">
+            </p>
+        </div>
+    </div>
+    <div class="row fondo-negro transparente-56 padding">
+        <div class="col-md-3 col-sm-3 col-xs-4 contenedor-imagen">
+            <img class="imagen imagen-centrada img-responsive" src="/images/avion.png" alt="" />
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-8 padding texto-justificado texto-normal">
+            <p>ydi es la APP que te permite conocer las ofertas y promociones que existan cerca de ti y que podrás ubicar directamente en tu Smartphone.</p>
+            <p>
+                Aprovecha los beneficios que ofrecen tus tarjetas de crédito y débito; las tiendas departamentales, restaurantes, aerolíneas y muchos otros servicios justo a tu alrededor.
+            </p>
+            <p>
+                Usa tu Android 4.2 en adelante con internet!.
+            </p>
+        </div>
+        <div class="col-md-3 col-sm-3 hidden-xs contenedor-imagen">
+            <img class="imagen imagen-centrada img-responsive" src="/images/oro_mcgif.png" alt="" º/>
+        </div>
+    </div>
+    <div class="fondo-textura-gris">
+        <div style="padding: 16px 0px;" class="row flex-stretch sin-opacity fondo-gris">
+            <div class="col-md-5 col-sm-5 col-xs-12 pandding texto-justificado  fondo-gris-claro">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="margin-textos">
+                            Utiliza los beneficios de tus tarjetas!!. No los conoces?. Baja ydi de la tienda, dá de alta tus tarjetas y comienza a usarlos!!.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-sm-2 hidden-xs"></div>    
+            <div class="col-md-5 col-sm-5 col-sm-12 pandding texto-justificado fondo-naranja">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="margin-textos">
+                            Ydi actualiza las ofertas y promociones que te interesan!. Te notifica directamente en tu celular!.<br/>
+                            Aprovéchalas en donde sea que te encuentres!.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row space-between padding hidden-xs">
+            <div class="item-row">
+                <img class="block img-responsive" id="u602_img" src="/images/1024px-starbucks_coffee_logosvg.png" alt=""/>
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u604_img" src="/images/1425763040-sanborns.png" alt="" />
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u606_img" src="/images/cinepolis-02.png" alt=""/>
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u608_img" src="/images/american-express-copy.png" alt="" />
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u610_img" src="/images/nike-logo-pngimgs-for-red-nike-logo-png-nlhidhd9.jpg" alt="" />
+            </div>
+        </div>
+        <div class="row space-between padding hidden-xs">
+            <div class="item-row">
+                <img class="block img-responsive" id="u799_img" src="/images/2000px-mastercard_logosvg.png" alt="" />
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u808_img" src="/images/ofrece-mul_1358510618944.png" alt="" />
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u823_img" src="/images/unknown-1.jpg" alt="" />
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u901_img" src="/images/unknown.jpg" alt="" />
+            </div>
+            <div class="item-row">
+                <img class="block img-responsive" id="u814_img" src="/images/cinepolis-02.png" alt="" />
+            </div>
+        </div>
+    </div>
+    <div style="height: 180px;" class="row fondo-negro">
+        <div class="col-md-4 col-sm-4  hidden-xs text-center contenedor-imagen contenedor-imagen-flotante">
+            <img class="imagen imagen-flotante imagen-flotante-izquierda" src="/images/anuncios_rapidos.png" alt="" />
+        </div>
+        <div class="col-md-1 col-sm-1 hidden-xs">&nbsp;</div>
+        <div class="col-md-6 col-sm-6 col-xs-12 texto-justificado">
+            <p style="padding-top: 40px;" class="margin-textos">
+                ydi tiene ofertas y promociones especiales que te interesan!. Te muestra las condiciones de la oferta para que la puedas hacer válida y te avisa de nuevas oportunidades!.
+            </p>
+        </div>
+        <div class="col-md-1 col-sm-1 hidden-xs">&nbsp;</div>
+    </div>
+    <div class="row margen-arriba" id="anuncios-rapidos">
+        <div class="col-md-4 col-sm-4 hidden-xs"></div>
+        <div class="col-md-8 col-sm-8 col-xs-12 padding fondo-naranja-claro">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4 contenedor-imagen">
+                    <img class="imagen imagen-centrada img-responsive imagen-seccion" src="/images/a_rapidos_n_o.png" alt=""  />
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-7 texto-justificado margin-textos">
+                    <h3>Anuncios rápidos</h3>
+                    <p>
+                        Tus ofertas y promociones oportunas para aprovechar al máximo!.
+                    </p>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-1">&nbsp;</div>            
+            </div>
+        </div>
+    </div>
+    <div class="row margen-arriba" id="promociones">
+        <div class="col-md-8 col-sm-8 col-xs-12 fondo-limon padding">   
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-4 contenedor-imagen">
+                    <img class="imagen imagen-centrada img-responsive imagen-seccion" src="/images/anuncios_v_o.png" alt="" />
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-7 texto-justificado margin-textos">
+                    <h3>ANUNCIOS y PROMOCIONES</h3>
+                    <p>
+                        Anunciantes con los productos de tus preferencias!.
+                        <br/>
+                        Usa las "i" para ver las condiciones y las <i class="fa fa-check"></i>  para usar la promoción!.
+                        <br/>
+                        Filtra según la tarjeta con la tarjetita y las preferencias con la estrella!!.
+                    </p>
+                </div>
+                <div class="col-md-1 col-sm-1 col-xs-1"></div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 hidden-xs text-center contenedor-imagen-flotante">
+            <img class="imagen imagen-flotante imagen-flotante-derecha" src="/images/8.png" alt="" />
+        </div>
+    </div>    
+    <div class="row margen-arriba" id="mis-puntos">
+        <div class="col-md-8 col-sm-8 col-xs-12 fondo-rojo-claro padding">
+            <div class="row">
+                <div class="col-md-1 col-sm-1 col-xs-1"></div>   
+                <div class="col-md-7 col-sm-7 col-xs-7 texto-justificado margin-textos">
+                    <h3>MIS PUNTOS</h3>
+                    <p>
+                        Ydi te da puntos cada vez que utilizas una oferta o promoción y generas un cupón para poder calificar tu experiencia con el comercio generado y con la APP. (Son independientes a los de tus tarjetas)!!.
+                    </p>
+                    <p>
+                        Canjea los puntos de la lista de recompensas!!.
+                    </p>
+                </div>
+                <div class="col-md-4 col-sm-4 col-xs-4 fondo-rojo-claro contenedor-imagen">
+                    <img class="imagen imagen-centrada img-responsive imagen-seccion" src="/images/mis_puntos_o.png" alt="" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 hidden-xs">
+
+        </div>
+    </div>
+    <div class="row margen-arriba fondo-amarillo padding" id="lugares">
+        <div class="col-md-1 col-sm-1 hidden-xs"></div>   
+        <div class="col-md-3 col-sm-3 col-xs-4 contenedor-imagen">
+            <img class="imagen imagen-centrada img-responsive imagen-seccion" src="/images/lugares_1_o.png" alt="">
+        </div>
+        <div class="col-md-1 col-sm-1 hidden-xs"></div>   
+        <div class="col-md-6 col-sm-6 col-xs-6 texto-justificado margin-textos">
+            <h3>LUGARES</h3>
+            <p>
+                Donde sea que te encuentres puedes aprovechar tus oportunidades. ¿Estas en un centro comercial?. Ydi te muestra los lugares cercanos que tienen en ofertas, promociones o descuentos con tus tarjetas!!. Aprovecha las sugerencias!!.
+            </p>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    </div>    
+    <div class="row fondo-negro margen-arriba padding" id="contacto">   
+        <div class="col-md-3 col-sm-3  col-xs-4 contenedor-imagen">
+            <img src="/images/ydi_final_2.png" class="imagen imagen-centrada img-responsive imagen-seccion" alt="">
+        </div>
+        <div class="col-md-8 col-sm-8  col-xs-8" class="texto-justificado">
+            <h3>ydi you deserve it!</h3>
+            <h3>Contacto:</h3>
+            <p>
+                Paseo del Río 123, Col. Chimalistac, <br/>
+                Delegación Álvaro Obregón, Ciudad de México. <br/>
+                Tel: 5662-4959 <br/>
+                Envianos tus comenarios desde <a style="color: white; text-transform: none;" href="#modalContacto" role="button" data-toggle="modal">aquí</a>
+            </p>
+            <h3>Legales</h3>
+            <p>
+                Todas las logos y marcas registradas son propiedad de sus respectivos dueños.
+                <a href="#" class="politica-privacidad" style="color: white; text-transform: none;">Política de privacidad</a>
+            </p>
+        </div>
+        <div class="col-md-1 col-sm-1 col-xs-1"></div>
+    </div>
+    <!-- Modal -->
+    <div id="modalContacto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Datos de contacto</h4>
+                </div>
+                <div class="modal-body modal-body-form-contacto">
+                    {{ include('AppBundle:Default:formContacto.html.twig',{'form': form, 'mensaje': mensaje, 'status': status}) }}
+                </div><!-- End of Modal body -->
+                <div class="modal-footer">
+                    <button id="botonEnviarContacto" type="button" value="Enviar" class="btn btn-lg btn-custom pull-right">Enviar</button>
+                </div>
+            </div><!-- End of Modal content -->
+        </div><!-- End of Modal dialog -->
+    </div><!-- End of Modal -->
+{% endblock %}

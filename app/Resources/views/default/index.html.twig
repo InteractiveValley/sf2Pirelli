@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <br/>
+    <div>
+        <img class="centra" align="center" src="{{asset('images/logoydi.png')}}" alt="YDI" name="Ydi" width="101" height="103" id="Insert_logo" style="display:block;"/>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <div>
+        <h3>Queetto. Software Movil para Empresas</h3>
+        <h4>Teléfono de Atención <br/> 5650-1755</h4>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{asset('css/estilos.css')}}" rel="stylesheet" type="text/css" />
+{% endblock %}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Usuario" table="usuario">
+    <indexes>
+      <index name="fk_usuario_codigop1_idx" columns="codigop_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="email_UNIQUE" columns="email"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id"/>
+    <id name="codigopId" type="integer" column="codigop_id"/>
+    <field name="nombre" type="string" column="nombre" length="60" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="email" type="string" column="email" length="60" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="apellidos" type="string" column="apellidos" length="60" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fechaSettings" type="date" column="fecha_settings" nullable="true"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Rechazos" table="rechazos">
+    <indexes>
+      <index name="fk_rechazos_usuario1_idx" columns="id_usuario"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="idUsuario" type="integer" column="id_usuario"/>
+    <field name="idAnuncio" type="integer" column="id_anuncio" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="motivo" type="string" column="motivo" length="45" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="fecha" type="date" column="fecha" nullable="true"/>
+  </entity>
+</doctrine-mapping>

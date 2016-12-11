@@ -1,0 +1,8 @@
+ydi_backend:
+    resource: "@YDIBackendBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

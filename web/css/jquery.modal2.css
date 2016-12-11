@@ -1,0 +1,66 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16/04/2016, 03:53:33 PM
+    Author     : richpolis
+*/
+
+.bgtransparent{
+	position:fixed;
+	left:0;
+	top:0;
+ 	background-color:#000;
+ 	opacity:0.8;
+ 	filter:alpha(opacity=80);
+        z-index: 10000;
+}
+
+.bgtransparent a{
+    color: white;
+    text-transform: none;
+}
+
+.bgmodal{
+        margin: 0 auto;
+        padding: 0 auto;
+	position:fixed; 
+	/*font-family:arial;*/
+	font-size:1em;
+	overflow:auto;
+        /*border:0.05em solid black;
+	background-color:#000;
+        opacity:0.6;
+ 	filter:alpha(opacity=60);*/
+        color: white;
+        z-index: 10001;
+        
+        
+}
+.bgmodal2{
+    margin: 0 auto;
+    padding: 10px;
+    position:fixed; 
+    font-size:1em;
+    overflow:auto;
+    border:0.05em solid black;
+    background-color:#000;
+    color: white;
+    z-index: 10001;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.cerrar-modal2{
+    font-size: 2em;
+    font-weight: lighter;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+    color: white;
+}

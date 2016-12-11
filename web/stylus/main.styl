@@ -1,0 +1,419 @@
+/* 
+    Created on  27/02/2016, 20:30 PM
+    Author      Ricardo Alcantara <richpolis@gmail.com>
+*/
+
+@import 'nib'
+@import 'normalize'
+
+box-sizing()
+	-webkit-box-sizing arguments
+	-moz-box-sizing arguments
+	box-sizing arguments
+	
+opacity(n)
+	opacity n
+	if support-for-ie
+		filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')
+
+naranja = #EE7601
+gris_oscuro = #7D7D7E
+
+body
+	font-size 16px
+
+.alto-250
+	height 250px
+
+.container
+	width 100%
+	text-align center
+	padding 0
+	
+	
+.contenedor-imagen-flotante
+	position relative
+	& img.imagen-flotante
+		position absolute
+		z-index 500
+		&.imagen-flotante-izquierda
+			height 434px 
+			width 307px
+			top -80px
+			left 20%
+			transition all .4s ease
+		&.imagen-flotante-derecha
+			height 483px 
+			width 341px
+			top -100px
+			left 10%
+			transition all .4s ease
+
+.encabezado-seccion
+	& h2 
+		margin .5em
+		color gris_oscuro
+
+.fondo-negro
+	background-color black
+	color white
+	&.transparente-56
+		opacity .8
+
+.fondo-textura-gris
+	background url('../images/cactus.jpg') center center
+	background-size conver
+	
+.fondo-naranja
+	background-color naranja
+	color white
+	border-radius 5px 0px 0px 5px
+	
+.fondo-naranja-claro
+	background-color #FAD8B3
+	color #EF7D00
+	border-radius 5px 0px 0px 5px
+
+.fondo-limon
+	background-color #e8e99d
+	color #C6CA0A
+	border-radius 0px 5px 5px 0px
+	
+.fondo-rojo-claro
+	background-color #fbadb2
+	color #F7323F
+	border-radius 0px 5px 5px 0px
+	
+.fondo-amarillo
+	background-color #FFF2BC
+
+.fondo-gris-claro
+	background-color #D9D9D9
+	color gris_oscuro
+	border-radius 0px 5px 5px 0px
+
+.header.principal
+	background-color naranja
+	color gris_oscuro
+	display flex
+	flex-direction row
+	flex-wrap no-wrap
+	justify-content space-between
+	position fixed
+	top 0px
+	left 0px
+	width 100%
+	z-index 3000
+	transition all .4s ease
+	&.grande
+		height 170px
+		& .logo
+			& img
+				padding-left 40%
+				height 170px
+	&.pequena
+		height 100px
+		& .logo
+			& img
+				padding-left 40%
+				height 100px
+	& .col-menu
+		height 100%
+	& .logo
+		height auto
+		& img
+			height 100%
+			padding-left 40%
+			transition all .4s ease
+	& .redes-sociales
+		display flex
+		flex-wrap no-wrap
+		justify-content flex-end
+		padding 10px 100px
+		width 100%
+		height 50px
+		& .item-redes-sociales
+			color white
+			width 30px
+			font-size 24px
+			margin 0px 10px
+			transition all .4s ease
+			&:hover
+				color gris_oscuro
+				transform scale(2,2)
+		& .item-menu
+			color white
+			width 30px
+			font-size 24px
+			margin 0px 10px
+			display none
+	& .navegador
+		display flex
+		flex-direction row
+		flex-wrap no-wrap
+		justify-content space-between
+		align-items center
+		width 900px
+		height 50px
+		padding-right 50px
+		& .item-navegador
+			display inline-block
+			color white
+			text-decoration none
+			transition all .4s ease
+			text-transform capitalize
+			padding 10px
+			border-radius 5px
+			&:hover
+				background-color gris_oscuro
+	& .tiendas
+		position relative
+		& img
+			height 60px
+		&.cambiar-posicion
+			position absolute
+			top 10px
+			left 50%
+			& > img
+				height 40px
+				
+
+.imagen
+	border 0
+	&.imagen-centrada
+		display inline-block
+
+.item-row
+	display flex
+	justify-content center
+	align-items center
+	& img
+		padding 5px
+		
+.margin
+	margin 1em		
+
+.margen-arriba
+	margin-top 16px
+	
+.margen-abajo 
+	margin-bottom 16px
+
+.margin-textos
+	padding 32px
+
+.texto-justificado
+	text-align justify
+	font-size 20px
+	padding .5em
+	& p
+		font-size 20px
+	& h3
+		font-size 24px
+		text-transform uppercase
+
+.row
+	display flex
+	min-height 192px
+	justify-content center
+	align-items center
+	flex-wrap wrap
+	&.flex-stretch
+		align-items stretch
+	&.sin-opacity
+		opacity 1
+	&.space-between
+		justify-content space-between
+		align-content space-around
+		&>div
+			width 20%
+			min-height 150px
+
+.padding
+	padding 1em
+	
+
+.h1
+.h2
+.h3
+.h4
+.h5
+.h6
+h1
+h2
+h3
+h4
+h5
+h6
+	font-family inherit
+	font-weight bold
+	line-height 18px
+	color inherit
+
+@media screen and (max-width: 1024px)
+	.header.principal
+		&.grande
+		&.pequena
+			& .logo
+				& img 
+					padding-left 5%
+		& .navegador
+			width 870px
+			
+	.contenedor-imagen-flotante
+		& img.imagen-flotante
+			&.imagen-flotante-izquierda
+				left 10%
+			&.imagen-flotante-derecha
+				left 3%
+
+@media screen and (max-width: 960px)
+	.header.principal
+		&.grande
+		&.pequena
+			& .logo
+				& img 
+					padding-left 5%
+					height 100px
+		& .navegador
+			width 850px
+	
+	.contenedor-imagen-flotante
+		& img.imagen-flotante
+			&.imagen-flotante-izquierda
+				width 100%
+				height auto
+			&.imagen-flotante-derecha
+				top -10%
+				width 100%
+				height auto
+
+				
+@media screen and (max-width: 900px)
+	.header.principal
+		flex-direction column
+		&.grande
+			height 200px
+			& .logo
+				& img
+					padding-left 0px
+					height 150px
+		&.pequena
+			height 150px
+			& .logo
+				& img
+					padding-left 0px
+					height 100px
+		
+		& .logo
+			display flex
+			justify-content center
+				
+		& .navegador
+			width 100%
+			padding 0px
+		& .redes-sociales
+			position absolute
+			top 20px
+			right 5px
+			padding 10px
+		& .tiendas
+			position absolute
+			top 30%
+			left 10px
+			&.cambiar-posicion
+				position absolute
+				top 20px
+				left 20px
+
+@media screen and (max-width: 800px)
+	.header.principal
+		flex-direction row
+		z-index 1000
+		&.grande
+			height 75px
+			& .logo
+				& img
+					padding-left 0px
+					height 75px
+		&.pequena
+			height 75px
+			& .logo
+				& img
+					padding-left 0px
+					height 75px
+		
+		& .logo
+			display flex
+			justify-content flex-start
+				
+		& .navegador
+			width calc(100% - 75px)
+			padding 0px
+			flex-wrap no-wrap
+			align-items flex-start
+			flex-direction column
+			position absolute
+			top 75px
+			background-color naranja
+			right 0px
+			height 100%
+			display none
+			transition all .4s ease
+			z-index 3000
+			&.show
+				display block
+			& .item-navegador
+				width 100%
+				font-size 16px
+				padding 10px
+				display inline-block
+				background-color naranja
+				border-radius 0px
+				text-align left
+				&:hover
+					background-color gris_oscuro
+					
+		& .redes-sociales
+			position absolute
+			top 5px
+			right 5px
+			padding 10px
+			& .item-redes-sociales
+				display none
+			& .item-menu
+				display block
+		& .tiendas
+			position absolute
+			top 15px
+			left calc(100% - 200px)
+			z-index 1000
+			& > img
+				height 40px
+			&.cambiar-posicion
+				position absolute
+				top 15px
+				left calc(100% - 200px)
+				& > img
+					height 40px
+
+@media screen and (max-width: 600px)
+	#inicio
+		margin-top 25px
+		
+	.col-md-12.text-center.texto-encabezado
+		& h2
+			font-size 20px
+
+	.texto-justificado
+		font-size 14px
+		& p
+			font-size 16px
+		& h3
+			font-size 14px
+			text-transform uppercase
+				
+	.contenedor-imagen-flotante
+		& img.imagen-flotante
+			display none
+			

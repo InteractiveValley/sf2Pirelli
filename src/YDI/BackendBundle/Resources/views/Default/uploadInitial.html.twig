@@ -1,0 +1,242 @@
+{% extends 'YDIBackendBundle::layout.html.twig' %}
+
+{% block nav %}
+    <nav>
+        <ul class="nav nav-justified">
+            <li><a href="{{ path('backend_home')}}">Inicio</a></li>  
+            <!--li><a href="{{ path('backend_upload_initial')}}">Carga inicial</a></li-->
+            <li><a href="{{asset('uploads/apks/app-debug.apk')}}" target="_blank">APK download</a></li>
+            <li><a href="{{ path('backend_upload_updates')}}">Actualizaciones</a></li>
+            <li><a href="{{ path('backend_upload_images')}}">Imagenes</a></li>
+            <li><a href="{{ path('backend_logout')}}">Salir</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Generic page styles -->
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+    <link rel="stylesheet" href="{{asset('css/jquery.fileupload.css')}}">
+{% endblock %}
+
+{% block content %}
+    <!-- Jumbotron -->
+    <div class="jumbotron">
+        <h1>Subir archivos carga inicial</h1>
+        <p class="lead">Subir los archivos de carga inicial.</p>
+    </div>
+    <div class="row">
+        <!-- The fileinput-button span is used to style the file input field as button -->
+        <span class="btn btn-success fileinput-button">
+            <i class="glyphicon glyphicon-plus"></i>
+            <span>Select files...</span>
+            <!-- The file input field used as target for the file upload widget -->
+            <input id="fileupload" type="file" name="files[]" multiple>
+        </span>
+        <br>
+        <br>
+        <!-- The global progress bar -->
+        <div id="progress" class="progress">
+            <div class="progress-bar progress-bar-success"></div>
+        </div>
+        <!-- The container for the uploaded files -->
+        <div id="files" class="files"></div>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Tabla</td>
+                    <td>Registros</td>
+                    <td>Accion</td>
+                    <td>Status</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for carga in cargas %}
+                <tr class="tabla-registros {{carga}}-tabla-registros" data-tabla="{{carga}}">
+                    <td class="tabla">{{carga}}</td>
+                    <td class="registros">0</td>
+                    <td class="acciones">
+                        <button class="button-action btn btn-success" data-loading-text="Loading..." data-url="{{path('backend_load_initial',{'index':loop.index})}}">
+                            Cargar
+                        </button>
+                    </td>
+                    <td class="status">
+                        <label class="label label-warning">En espera</label>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            {% if cargas|length > 1 %}
+            <tfoot>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>
+                        <button class="button-action-all btn btn-success" data-loading-text="Loading..." data-url="{{path('backend_load_initial')}}">
+                            Cargar todos.
+                        </button>
+                    </td>
+                    <td>&nbsp;</td>
+                </tr>
+            </tfoot>
+            {% endif %}
+        </table>
+        <div class="text-center">
+            <button class="button-action-notificacion-general btn btn-success" data-loading-text="Loading..." data-url="{{path('backend_notificacion_general')}}">
+                Enviar notificaciones
+            </button>
+        </div>
+        <div class="resultados"></div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+    <script src="{{asset('js/vendor/jquery.ui.widget.js')}}"></script>
+    <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+    <script src="{{asset('js/jquery.iframe-transport.js')}}"></script>
+    <!-- The basic File Upload plugin -->
+    <script src="{{asset('js/jquery.fileupload.js')}}"></script>
+    <script>
+    /*jslint unparam: true */
+    /*global window, $ */
+    $(function () {
+        'use strict';
+        // Change this to the location of your server-side upload handler:
+        var url =  '{{ path('backend_upload_initial') }}';
+        $('#fileupload').fileupload({
+            url: url,
+            dataType: 'json',
+            acceptFileTypes: /(\.|\/)(xls)$/i,
+            maxFileSize: 999000,
+            done: function (e, data) {
+                $.each(data.result.files, function (index, file) {
+                    $('<p/>').text(file.name).appendTo('#files');
+                });
+                location.href = '{{ path('backend_upload_initial') }}';
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css(
+                    'width',
+                    progress + '%'
+                );
+                if(progress == 100){
+                   setTimeout(function(){
+                       location.href = '{{ path('backend_upload_initial') }}';
+                   },1000);
+                }
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+
+        $(".button-action-notificacion-general").on("click",function(e){
+            var url = $(this).data('url');
+            var $btn = $(this).button('loading');
+            $.ajax({
+                url: url,
+                type:'post',
+                dataType: 'json',
+                data:{}
+            }).done(function(data){
+                $btn.button('reset');
+                debugger;
+                if(data.motivo){
+                    $(".resultados").html("<p>Enviar notificaciones generales: " + data.estatus + "<br/> Detalle: " + data.motivo + "</p>");
+                }else{
+                    $(".resultados").html("<p>Enviar notificaciones generales: " + data.estatus +  "</p>");
+                }
+            }).fail(function(data){
+               $btn.button('reset');
+               console.log(data);
+               alert("Error de carga");
+            });
+        });        
+    
+        $(".tabla-registros .button-action").on("click",function(e){
+            var url = $(this).data('url');
+            var $parent = $(this).parent().parent();
+            $parent.find('.registros').html('0');
+            $parent.find('.status').html('<label class="label label-warning">En espera</label>');
+            var $btn = $(this).button('loading');
+            $.ajax({
+                url: url,
+                type:'post',
+                dataType: 'json',
+                data:{}
+            }).done(function(data){
+                $btn.button('reset');
+                debugger;
+                var tabla = data[0];
+                console.log(tabla);
+                var target = $("."+tabla.tabla + "-tabla-registros");
+                var mensaje = "";
+                if(tabla.error){
+                    mensaje = "Error :" + tabla.error;
+                    alert(mensaje);
+                }else{
+                    mensaje = "OK tabla: " + tabla.tabla + " fue cargarda. Registros: "+ tabla.registros;
+                    alert(mensaje);
+                }
+                if(target){
+                    target.find('.registros').html(mensaje);
+                    target.find('.status').html('<label class="label label-primary">Procesado</label>');
+                }else{
+                    $(".resultados").html("<p>" + mensaje +  "</p>")
+                }
+            }).fail(function(data){
+               $btn.button('reset');
+               console.log(data);
+               alert("Error de carga");
+              
+            });
+        });
+        
+        $(".button-action-all").on("click",function(e){
+            var url = $(this).data('url');
+            $('.registros').html("0");
+            $('.status').html('<label class="label label-warning">En espera</label>');
+            var $btn = $(this).button('loading');
+            $.ajax({
+                url: url,
+                type:'post',
+                dataType: 'json',
+                data:{}
+            }).done(function(data){
+                $btn.button('reset');
+                debugger;
+                var index  = 0;
+                console.log(JSON.stringify(data));
+                var target = null;
+                var mensaje = "";
+                for(index in data){
+                    var mensaje = "";
+                    if(data[index].error){
+                        mensaje = "Error :" + data[index].error;
+                        alert(mensaje);
+                    }else{
+                        mensaje = "OK tabla: " + data[index].tabla + " fue cargarda. Registros: "+ data[index].registros;
+                        alert(mensaje);
+                    }
+                    target = $("."+data[index].tabla + "-tabla-registros");
+                    if(target){
+                        target.find('.registros').html(mensaje);
+                        target.find('.status').html('<label class="label label-primary">Procesado</label>');
+                    }else{
+                        $(".resultados").html("<p>" + mensaje +  "</p>")
+                    }
+                }
+            }).fail(function(data){
+               $btn.button('reset');
+               console.log(data);
+               alert("Error de carga");
+            });
+        });
+    });
+    </script>
+{% endblock %}
+

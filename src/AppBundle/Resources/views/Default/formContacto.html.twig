@@ -1,0 +1,50 @@
+{% if mensaje is not defined %}
+    {% set mensaje = "" %}
+{% endif %}
+{% if status is not defined %}
+    {% set status = "new" %}
+{% endif %}
+{% if status =='send' %}
+    <div class="alert alert-success">
+        {{ mensaje }}
+    </div>
+{% elseif status == 'notsend' %}
+    <div class="alert alert-danger">
+        {{ mensaje }}
+    </div>
+{% endif %}
+<form onsubmit="return false;" id="formContacto" class="form-horizontal" 
+      action="{{path('contacto')}}" method="post" novalidate="novalidate" role="form">
+    <div class="form-group">
+        <label class="control-label col-md-4" for="name">Nombre: </label>
+        <div class="col-md-6">
+            {{ form_widget(form.name, {'attr': {'class': 'form-control','placeholder':'Nombre' }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4" for="email">Email: </label>
+        <div class="col-md-6 input-group">
+            <span class="input-group-addon">@</span>
+            {{ form_widget(form.email, {'attr': {'class': 'form-control','placeholder':'Email' }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4" for="phone">Telefono o Celular: </label>
+        <div class="col-md-6">
+            {{ form_widget(form.phone, {'attr': {'class': 'form-control','placeholder':'Teléfono o Celular' }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4" for="company">Empresa: </label>
+        <div class="col-md-6">
+            {{ form_widget(form.company, {'attr': {'class': 'form-control','placeholder':'Nombre de empresa' }}) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-md-4" for="direccion">Comentarios: </label>
+        <div class="col-md-6">
+            {{ form_widget(form.body, {'attr': {'class': 'form_area form-control','rows':'5','placeholder':'Comentarios' }}) }}
+        </div>
+    </div>
+    {{ form_rest(form) }}    
+</form>
